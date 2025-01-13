@@ -1,27 +1,26 @@
 $(window).on('load', function () {
-    // Initialize all necessary features
     initializePwaFeatures();
     initializeGoogleAnalytics();
     initializeProjectFilter();
 });
 
-// Initialize all PWA-related features
+// Initialize PWA-related features
 function initializePwaFeatures() {
     addManifestLink();
     registerServiceWorker();
     setupPwaInstallationPrompt();
 }
 
-// Dynamically add the manifest link
+// Dynamically add the manifest link for PWA
 function addManifestLink() {
     const manifestLink = document.createElement('link');
     manifestLink.rel = 'manifest';
-    manifestLink.href = '/manifest.json'; // Ensure this file exists in the root directory
+    manifestLink.href = '/manifest.json'; // Ensure this file exists at the root
     document.head.appendChild(manifestLink);
-    console.log('Manifest added:', manifestLink.href);
+    console.log('Manifest file added:', manifestLink.href);
 }
 
-// Register Service Worker for caching and offline support
+// Register the Service Worker for offline support
 function registerServiceWorker() {
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/service-worker.js')
@@ -34,7 +33,7 @@ function registerServiceWorker() {
                 trackEvent('PWA_service_worker', 'Service Worker', 'Failed', 0);
             });
     } else {
-        console.warn('Service Worker not supported in this browser.');
+        console.warn('Service Worker is not supported in this browser.');
         trackEvent('PWA_service_worker', 'Service Worker', 'Not Supported', 0);
     }
 }
@@ -55,7 +54,7 @@ function initializeGoogleAnalytics() {
     };
 }
 
-// Set up PWA installation prompt
+// Set up the PWA installation prompt
 function setupPwaInstallationPrompt() {
     let deferredPrompt;
     const isPwaInstalled = localStorage.getItem('pwaInstalled');
@@ -98,7 +97,7 @@ function setupPwaInstallationPrompt() {
                     }
                     deferredPrompt = null;
                     popup.hide();
-                }).catch(error => {
+                }).catch((error) => {
                     console.error('Error during PWA installation:', error);
                 });
             }
@@ -121,7 +120,7 @@ function setupPwaInstallationPrompt() {
     }
 }
 
-// Detect mobile devices
+// Detect if the device is mobile
 function isMobileDevice() {
     return window.matchMedia("(max-width: 767px)").matches || /Mobi|Android/i.test(navigator.userAgent);
 }
@@ -140,7 +139,7 @@ function trackEvent(action, category, label, value) {
     }
 }
 
-// Initialize project filter for categories and other content
+// Initialize project filtering for categories or content
 function initializeProjectFilter() {
     const $container = $('.projectContainer');
     $('.projectFilter a').on('click', function () {
