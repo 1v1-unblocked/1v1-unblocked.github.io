@@ -15,7 +15,7 @@ function initializePwaFeatures() {
 function addManifestLink() {
     const manifestLink = document.createElement('link');
     manifestLink.rel = 'manifest';
-    manifestLink.href = '/manifest.json'; // Ensure this file exists at the root
+    manifestLink.href = '/js/manifest.json'; // Ensure this file exists at the root
     document.head.appendChild(manifestLink);
     console.log('Manifest file added:', manifestLink.href);
 }
@@ -23,7 +23,7 @@ function addManifestLink() {
 // Register the Service Worker for offline support
 function registerServiceWorker() {
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker.js', { scope: '/' }) // Set the root scope
+        navigator.serviceWorker.register('/js/service-worker.js', { scope: '/' }) // Set the root scope
             .then((registration) => {
                 console.log('Service Worker registered with scope:', registration.scope);
                 trackEvent('PWA_service_worker', 'Service Worker', 'Registered', 1);
