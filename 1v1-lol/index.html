@@ -32,6 +32,26 @@
     <script src="1v1-lol/firebase-remote-config.js"></script> 
     <script src="1v1-lol/firebase.js"></script> 
     <script src="1v1-lol/login.js"></script> 
-    <script src="1v1-lol/firebase-config.js"></script>  
+    <script src="1v1-lol/firebase-config.js"></script> 
+    <script>
+    fetch("1v1-lol/get.json")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Failed to load get.json: " + response.statusText);
+            }
+            return response.json();
+        })
+        .then(config => {
+            var gameInstance = UnityLoader.instantiate("gameContainer", config, {
+                onProgress: UnityProgress,
+                Module: {
+                    onRuntimeInitialized: function() {
+                        UnityProgress(gameInstance, "complete");
+                    }
+                }
+            });
+        })
+        .catch(error => console.error("Error loading JSON:", error));
+</script>
 </body> 
 </html>
